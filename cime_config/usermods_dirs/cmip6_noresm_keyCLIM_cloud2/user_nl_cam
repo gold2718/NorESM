@@ -24,3 +24,7 @@ clubb_gamma_coef  = 0.330
 
 clubb_meltpt_temp = 243.15D0
 clubb_dt_low      = 238.15D9
+
+hetfrz_aer_scalfac = 0.001D0
+
+micro_mg_berg_eff_factor = 0.5D0
