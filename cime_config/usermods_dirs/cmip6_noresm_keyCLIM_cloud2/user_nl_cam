@@ -23,7 +23,7 @@ fincl4 = 'Q:I','QREFHT:I','Q850:I','PSL:I', 'PS:I','T:I', 'TREFHT:I','U:I','V:I'
 clubb_gamma_coef  = 0.330
 
 clubb_meltpt_temp = 243.15D0
-clubb_dt_low      = 238.15D9
+clubb_dt_low      = 238.15D0
 
 hetfrz_aer_scalfac = 0.001D0
 
