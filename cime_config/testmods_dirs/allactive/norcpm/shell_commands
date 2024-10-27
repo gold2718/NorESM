@@ -1,0 +1,2 @@
+./xmlchange NTASKS=-1
+./xmlchange NTASKS_ESP=-2
