@@ -1,2 +1,4 @@
 ./xmlchange NTASKS=-1
+./xmlchange NTASKS_OCN=63
 ./xmlchange NTASKS_ESP=-2
+./xmlchange MULTI_DRIVER=FALSE
