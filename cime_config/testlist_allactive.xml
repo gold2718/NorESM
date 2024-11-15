@@ -109,7 +109,7 @@
   </test>
   <test name="SMS_D_Ld1" grid="f19_tn14" compset="N1850esm" testmods="allactive/defaultio">
     <machines>
-      <machine name="betzy" compiler="intel" category="noresm_prealpha"/>
+      <machine name="betzy" compiler="intel" category="prealpha_noresm"/>
     </machines>
     <options>
       <option name="wallclock"> 01:00 </option>
@@ -117,7 +117,7 @@
   </test>
   <test name="PFS" grid="f19_tn14" compset="N1850esm">
     <machines>
-      <machine name="betzy" compiler="intel" category="noresm_prealpha"/>
+      <machine name="betzy" compiler="intel" category="prealpha_noresm"/>
     </machines>
     <options>
       <option name="wallclock"> 01:00 </option>
@@ -128,7 +128,7 @@
       <machine name="betzy" compiler="intel" category="prealpha_noresm"/>
     </machines>
     <options>
-      <option name="comment">NorCPM test</desc>
+      <option name="comment">NorCPM test</option>
       <option name="wallclock"> 01:00 </option>
     </options>
   </test>
