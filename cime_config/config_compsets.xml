@@ -36,7 +36,7 @@
     - grid  (optional regular expression match for grid to work with the compset)
   </help>
 
-  <!-- 1850 compset -->
+  <!-- 1850 compsets -->
 
   <compset>
     <alias>N1850</alias>
@@ -58,6 +58,13 @@
   <compset>
     <alias>N1850mam4</alias>
     <lname>1850_CAM70%LT%GHGMAM4_CLM60%SP_CICE_BLOM%HYB%ECO_MOSART_DGLC%NOEVOLVE_SWAV_SESP</lname>
+  </compset>
+
+  <!-- HIST compsets -->
+
+  <compset>
+    <alias>NHIST</alias>
+    <lname>HIST_CAM70%LT%NORESM%CAMoslo_CLM60%SP_CICE_BLOM%HYB%ECO_MOSART_DGLC%NOEVOLVE_SWAV_SESP</lname>
   </compset>
 
   <!-- BG compsets: evolving ice sheet -->
