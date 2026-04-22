@@ -1,0 +1,123 @@
+# Bits of container tradecraft that might be handy
+# Add them here to keep the main dockerfile less cluttered
+
+# If Python needs to be a different version:
+# ARG PYTHON_VERSION=3.11
+# ENV PYTHON_VERSION=${PYTHON_VERSION}
+# RUN apt-get update                                && \
+#     DEBIAN_FRONTEND=noninteractive                   \
+#     apt-get install -y software-properties-common && \
+#     add-apt-repository -y ppa:deadsnakes/ppa      && \
+#     apt-get update                                && \
+#     apt install -y python${PYTHON_VERSION}        && \
+#     rm -rf /var/lib/apt/lists/*
+# End Python different version
+
+
+## CMake and make tools
+ARG CMAKE_VERSION=3.25.1
+ENV CMAKE_MAJOR="${CMAKE_VERSION%[.][0-9]*}"
+ENV CMAKE_VERSION=${CMAKE_VERSION}
+
+RUN apt-get update --yes                          && \
+    DEBIAN_FRONTEND=noninteractive                   \
+    apt-get install --yes --no-install-recommends    \
+    make                                             \
+    pkg-config                                       \
+    wget                                          && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir --parents /var/tmp                      && \
+    wget -q -nc --no-check-certificate -P /var/tmp   \
+         https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh && \
+    mkdir --parents /usr/local                    && \
+    /bin/sh /var/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.sh --prefix=/usr/local --skip-license && \
+    rm -rf /var/tmp/cmake-${CMAKE_VERSION}-linux-x86_64.sh
+# End CMake tools
+
+## GNU compiler
+# ARG GCC_VERSION=11
+# ENV GCC_VERSION=${GCC_VERSION}
+
+# RUN apt-get update --yes                                 && \
+#     DEBIAN_FRONTEND=noninteractive                          \
+#     apt-get install --yes --no-install-recommends           \
+#                     software-properties-common           && \
+#     apt-add-repository ppa:ubuntu-toolchain-r/test --yes && \
+#     apt-get update --yes                                 && \
+#     DEBIAN_FRONTEND=noninteractive                          \
+#     apt-get install --yes --no-install-recommends           \
+#     gcc-${GCC_VERSION}                                      \
+#     g++-${GCC_VERSION}                                      \
+#     gfortran-${GCC_VERSION}
+
+# RUN apt-get update --yes                                 && \
+#     DEBIAN_FRONTEND=noninteractive                          \
+#     apt-get install -y mpich                             && \
+#     rm -rf /var/lib/apt/lists/*
+
+# #RUN apt-get update --yes                                && \
+# #    DEBIAN_FRONTEND=noninteractive                         \
+# #    apt-get install -y openmpi-bin libopenmpi-dev       && \
+# #    rm -rf /var/lib/apt/lists/*
+
+#RUN << ALTERNATIVES
+#  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 60
+#  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} 60
+#  update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 60
+#ALTERNATIVES
+
+## NetCDF: install and move to its own path
+## Swiped from:
+#  github.com/earth-system-radiation/containers/blob/main/Dockerfile-add-netcdf
+
+# ARG LIBNETCDF_VERSION=4.8.1
+# ENV LIBNETCDF_VERSION=${LIBNETCDF_VERSION}
+
+# ARG NETCDF_FORTRAN_VERSION=4.6.0
+# ENV NETCDF_FORTRAN_VERSION=${NETCDF_FORTRAN_VERSION}
+
+# ARG NETCDF_INSTALL_PATH="/opt/netcdf"
+# RUN apt-add-repository --yes http://apt.pop-os.org/ubuntu &&               \
+#     apt-get update --yes                                  &&               \
+#     DEBIAN_FRONTEND=noninteractive                                         \
+#     apt-get --yes install --no-install-recommends                          \
+#     netcdf-bin nco libnetcdf-dev libnetcdff-dev           &&               \
+#     mkdir --parents ${NETCDF_INSTALL_PATH}/bin            &&               \
+#     ln -s /usr/bin/nc-config ${NETCDF_INSTALL_PATH}/bin   &&               \
+#     mkdir --parents ${NETCDF_INSTALL_PATH}/include        &&               \
+#     for file in $(cd /usr/include; ls netcdf*); do                         \
+#         ln -s /usr/include/${file} ${NETCDF_INSTALL_PATH}/include/${file}; \
+#     done                                                  &&               \
+#     mkdir --parents ${NETCDF_INSTALL_PATH}/lib            &&               \
+#     for file in $(cd /usr/lib/x86_64-linux-gnu; ls libnetcdf*); do         \
+#         ln -s /usr/lib/x86_64-linux-gnu/${file}                            \
+#               ${NETCDF_INSTALL_PATH}/lib/${file};                          \
+#     done                                                  &&               \
+#     rm -rf /var/lib/apt/lists/*
+
+## conda
+## Copy an image from https://hub.docker.com/u/continuumio
+#ARG CONDA_VERSION=24.11.3
+#ENV CONDA_VERSION=${CONDA_VERSION}
+
+#COPY --from=continuumio/miniconda3:latest /opt/conda /opt/conda
+#ENV PATH=/opt/conda/bin:$PATH
+#RUN conda install -c conda-forge --yes pybind11 conda=${CONDA_VERSION}
+# end conda
+
+# User mechanics
+# Add a default user
+# ARG NEWUSER=NorESMuser
+# RUN useradd --create-home --home-dir /home/${NEWUSER}             \
+#     --shell /bin/bash --gid 100 ${NEWUSER}
+
+# Add vscode support
+#RUN useradd --no-create-home --password "" --shell /bin/bash vscode
+
+# Set the default user
+# ENV USER="${NEWUSER}"
+# USER ${NEWUSER}
+# ENV HOME=/home/${NEWUSER}
+# WORKDIR ${HOME}
+# end user mechanics
