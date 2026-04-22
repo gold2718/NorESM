@@ -1,0 +1,15 @@
+# .bashrc file for container
+# Uses some guidance from ESMF base version for consistency
+
+# spack setup
+. ${SPACK_ROOT}/share/spack/setup-env.sh
+if spack find lmod > /dev/null 2>&1; then
+. $(spack location -i lmod)/lmod/lmod/init/bash
+fi
+if [[ -v SPACK_ENV_DEFAULT ]]; then
+spack env activate -p ${SPACK_ENV_DEFAULT}
+fi
+# load modules
+if [[ -v MODULES_DEFAULT ]]; then
+module load ${MODULES_DEFAULT} > /dev/null 2>&1
+fi
