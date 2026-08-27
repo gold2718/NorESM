@@ -46,3 +46,7 @@ The uppercase keyword arguments are:
 You can also use additional `--volume` or `--env` commands to make
 more local folders available to the container or to set more
 environment variables inside the container when it launches.
+
+### Publishing the container
+podman login docker.io
+podman push <image ID> docker://docker.io/gold2718/noresm3
