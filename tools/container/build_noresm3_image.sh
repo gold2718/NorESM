@@ -66,7 +66,7 @@ fi
 #podman pull continuumio/miniconda3
 buildargs="--file Dockerfile_NorESM3.gnu"
 buildargs="${buildargs} --tag ${IMAGE_NAME}:${TAG}"
-#buildargs="${buildargs} --build-arg FINDNETCDF=${context_dir}/FindNetCDF.cmake"
+buildargs="${buildargs} --build-arg MAINTAINER=\"${USER}\""
 if [ "${dry_run}" == "yes" ]; then
     echo "Command: ${command} build ${buildargs} ${context_dir}"
 else

@@ -13,3 +13,6 @@ fi
 if [[ -v MODULES_DEFAULT ]]; then
 module load ${MODULES_DEFAULT} > /dev/null 2>&1
 fi
+
+# Load aliases
+. ${HOME}/.bash_aliases
