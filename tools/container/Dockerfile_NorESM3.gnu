@@ -124,6 +124,13 @@ RUN                                                                          \
 ## Install Claude code
 RUN npm install -g @anthropic-ai/claude-code
 
+## Install ncview2 (https://github.com/benmsanderson/ncview2) with geo extras
+## (cartopy/cmocean) for coastline overlays and ocean colormaps.
+## GEOS/PROJ system libs are already installed above
+## (libgeos-dev, libproj-dev).
+RUN pip install --no-cache-dir --break-system-packages \
+              "ncview2[geo] @ git+https://github.com/benmsanderson/ncview2.git"
+
 ## Set the environment (need to still be user root here)
 ## Multiple variables on one line does not seem to work on podman
 ENV HOSTNAME "container"
