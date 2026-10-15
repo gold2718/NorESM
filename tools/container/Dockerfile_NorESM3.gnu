@@ -122,7 +122,7 @@ RUN                                                                          \
   echo "OK, all installs target a generic microarchitecture"
 
 ## Install Claude code
-RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g @anthropic-ai/claude-code --no-cache
 
 ## Install ncview2 (https://github.com/benmsanderson/ncview2) with geo extras
 ## (cartopy/cmocean) for coastline overlays and ocean colormaps.
